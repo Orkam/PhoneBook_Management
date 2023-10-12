@@ -31,9 +31,10 @@ public class Contact {
 	@Column(name="registerDate")
 	private LocalDateTime registerDate;
 	
-	
-	
-	
+			
+	public Contact() {
+		super();
+	}
 	public Contact(Integer id, String name, String surname, String phone, LocalDate birthday,
 			LocalDateTime registerDate) {
 		super();
