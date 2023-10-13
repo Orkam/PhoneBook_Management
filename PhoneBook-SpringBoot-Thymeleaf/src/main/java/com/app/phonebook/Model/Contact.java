@@ -8,11 +8,16 @@ package com.app.phonebook.Model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.validation.constraints.Past;
 
 @Entity
 public class Contact {
@@ -26,10 +31,14 @@ public class Contact {
 	private String surname;
 	@Column(name="phone")
 	private String phone;
+	
+	@DateTimeFormat(iso = ISO.DATE)
+	@Past
 	@Column(name="bithday")
 	private LocalDate birthday;
 	@Column(name="registerDate")
 	private LocalDateTime registerDate;
+	
 	
 			
 	public Contact() {

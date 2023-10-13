@@ -5,7 +5,9 @@
 */
 package com.app.phonebook.Controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,12 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.app.phonebook.Model.Contact;
 import com.app.phonebook.services.PhoneBookServices;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
 @Controller
 public class PhoneBookController {
@@ -64,13 +63,24 @@ public class PhoneBookController {
 	public String deleteContact(@PathVariable Long id) {
 
 		Optional<Contact> contactFound = phoneBookServices.findContactById(id);
-		
+
 		phoneBookServices.deleteContact(contactFound.get());
-		
-		
 
 		return "redirect:/";
 
+	}
+
+	@GetMapping("/editContact/{id}")
+	public ModelAndView editContact(@PathVariable Long id) {
+
+		Optional<Contact> contactFound = phoneBookServices.findContactById(id);
+
+		ModelAndView modelAndView = new ModelAndView();	
+
+		modelAndView.addObject("contact", contactFound.get());
+		modelAndView.setViewName("editContact");
+
+		return modelAndView;
 	}
 
 }
